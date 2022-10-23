@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NoChromeDecode extends AppCompatActivity {
 
@@ -15,37 +16,42 @@ public class NoChromeDecode extends AppCompatActivity {
         setContentView(R.layout.activity_no_chrome_decode);
     }
     public void decode(View view){
-        EditText data = (EditText) findViewById(R.id.decodeInput);
-        TextView res = (TextView) findViewById(R.id.result);
-        String s = data.getText().toString();
-        s = s.trim();
-        int sq = sqrRt(s.length());
-        int n;
-        if(s.length()==sq*sq) {
-            n = sqrRt(s.length());
-        }else {
-            n = sqrRt(getCode(s.length()));
-        }
-        char[][] mat = new char[n][n];
-        int k = 0;
-        for(int i = 0;i<n;i++) {
-            for(int j = 0;j<n;j++) {
-                mat[i][j] = s.charAt(k++);
+        try {
+            EditText data = (EditText) findViewById(R.id.decodeInput);
+            TextView res = (TextView) findViewById(R.id.result);
+            String s = data.getText().toString();
+            s = s.trim();
+            int sq = sqrRt(s.length());
+            int n;
+            if (s.length() == sq * sq) {
+                n = sqrRt(s.length());
+            } else {
+                n = sqrRt(getCode(s.length()));
             }
-        }
-        char[][] at = new char[n][n];
-        for(int i = 0;i<n;i++) {
-            for(int j = 0;j<n;j++) {
-                at[i][j] = mat[j][i];
+            char[][] mat = new char[n][n];
+            int k = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    mat[i][j] = s.charAt(k++);
+                }
             }
-        }
-        StringBuilder de = new StringBuilder();
-        for(int i = 0;i<n;i++) {
-            for(int j = 0;j<n;j++) {
-                de.append(at[i][j]);
+            char[][] at = new char[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    at[i][j] = mat[j][i];
+                }
             }
+            StringBuilder de = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    de.append(at[i][j]);
+                }
+            }
+            res.setText(de);
+        }catch(Exception e){
+            Toast t = Toast.makeText(this,"Error decoding",Toast.LENGTH_SHORT);
+            t.show();
         }
-        res.setText(de);
     }
     public int sqrRt(int n) {
         int low = 0;

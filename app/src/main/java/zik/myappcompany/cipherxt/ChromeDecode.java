@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.*;
 import java.net.URI;
@@ -22,44 +23,48 @@ public class ChromeDecode extends AppCompatActivity {
         setContentView(R.layout.activity_chrome_decode);
     }
     public void Decode(View view) throws Exception{
-        EditText data = (EditText) findViewById(R.id.decodeInput);
-        TextView res = (TextView) findViewById(R.id.decodeOutput);
-        String s = data.getText().toString();
-        s = s.trim();
-        boolean toClean = false;
-        char l = s.charAt(s.length()-1);
-        int length = Character.getNumericValue(l);
-        StringBuilder sb = new StringBuilder(s);
-        s = sb.toString();
-        int sq = sqrRt(s.length());
-        int n;
-        if(s.length()==sq*sq) {
-            n = sqrRt(s.length());
-        }else {
-            toClean = true;
-            n = sqrRt(getCode(s.length()));
-        }
-        char[][] mat = new char[n][n];
-        int k = 0;
-        for(int i = 0;i<n;i++) {
-            for(int j = 0;j<n;j++) {
-                mat[i][j] = s.charAt(k++);
+        try {
+            EditText data = (EditText) findViewById(R.id.decodeInput);
+            TextView res = (TextView) findViewById(R.id.decodeOutput);
+            String s = data.getText().toString();
+            s = s.trim();
+            boolean toClean = false;
+            char l = s.charAt(s.length() - 1);
+            int length = Character.getNumericValue(l);
+            StringBuilder sb = new StringBuilder(s);
+            s = sb.toString();
+            int sq = sqrRt(s.length());
+            int n;
+            if (s.length() == sq * sq) {
+                n = sqrRt(s.length());
+            } else {
+                toClean = true;
+                n = sqrRt(getCode(s.length()));
             }
-        }
-        char[][] at = new char[n][n];
-        for(int i = 0;i<n;i++) {
-            for(int j = 0;j<n;j++) {
-                at[i][j] = mat[j][i];
+            char[][] mat = new char[n][n];
+            int k = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    mat[i][j] = s.charAt(k++);
+                }
             }
-        }
-        StringBuilder en = new StringBuilder();
-        for(int i = 0;i<n;i++) {
-            for(int j = 0;j<n;j++) {
-                en.append(at[i][j]);
+            char[][] at = new char[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    at[i][j] = mat[j][i];
+                }
             }
+            StringBuilder en = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    en.append(at[i][j]);
+                }
+            }
+            String cleaned_code = cleanCode(en);
+            chrome(cleaned_code);
+        }catch(Exception e){
+            Toast t = Toast.makeText(this,"Error decoding",Toast.LENGTH_SHORT);
         }
-        String cleaned_code = cleanCode(en);
-        chrome(cleaned_code);
     }
     public static int sqrRt(int n) {
         int low = 0;

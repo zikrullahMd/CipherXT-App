@@ -15,10 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Signup extends AppCompatActivity {
-
     TextInputEditText email;
     TextInputEditText pass;
     TextView login;
@@ -26,6 +24,7 @@ public class Signup extends AppCompatActivity {
 
 
     FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +40,12 @@ public class Signup extends AppCompatActivity {
         sbtn.setOnClickListener(view -> {
             createUser();
         });
-
         login.setOnClickListener(view->{
             startActivity(new Intent(Signup.this,MainActivity.class));
         });
+
     }
+
 
     public void createUser(){
         String em = email.getText().toString();
@@ -62,7 +62,7 @@ public class Signup extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(Signup.this,"User registered successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signup.this,"User registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Signup.this,MainActivity.class));
                     }else{
                         Toast.makeText(Signup.this,"Sighup Error "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();

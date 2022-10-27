@@ -3,11 +3,10 @@ package zik.myappcompany.cipherxt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     Button loginBtn;
     private FirebaseAuth mAuth;
-    TextView sign;
+
     EditText username;
     EditText password;
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         loginBtn = findViewById(R.id.button);
-        sign = findViewById(R.id.signup);
+        TextView sign = findViewById(R.id.sign);
         username = findViewById(R.id.usernameInput);
         password = findViewById(R.id.passwordInput);
         loginBtn.setOnClickListener(view ->{
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(MainActivity.this,"User registered successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"Hello "+email.toString(),Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this,HomeActivity.class));
                     }else{
                         Toast.makeText(MainActivity.this,"User not registered",Toast.LENGTH_SHORT).show();
@@ -80,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"Invalid username or password",Toast.LENGTH_SHORT).show();
         }
     }
+
+//    public void signupFun(){
+//        try{
+//            startActivity(new Intent(MainActivity.this,Signup.class));
+//        }catch(Exception e){
+//            Toast.makeText(MainActivity.this,"Error "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public void onStart() {
         super.onStart();

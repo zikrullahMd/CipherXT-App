@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +18,29 @@ import java.net.URI;
 
 public class ChromeDecode extends AppCompatActivity {
 
+    TextView data;
+    TextView res;
+    Button follow;
+    private String ans;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chrome_decode);
+        data = findViewById(R.id.database);
+        res = findViewById(R.id.decodeOutput);
+        data.setOnClickListener(view -> {
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://keep.google.com/u/0/#NOTE/1sj3zqAghZ6h9FH2CGM2WTdEYHZQg2WgEG6SsVXsC9armsnk2vT68XJoB9CuqfgTq")));
+        });
+        follow = findViewById(R.id.urlBtn);
+        follow.setOnClickListener(view ->{
+            try {
+                chrome(this.ans);
+            } catch (Exception e) {
+                Toast.makeText(ChromeDecode.this,"Error",Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        });
     }
     public void Decode(View view) throws Exception{
         try {
@@ -61,7 +81,8 @@ public class ChromeDecode extends AppCompatActivity {
                 }
             }
             String cleaned_code = cleanCode(en);
-            chrome(cleaned_code);
+            this.ans = cleaned_code;
+            res.setText(cleaned_code);
         }catch(Exception e){
             Toast t = Toast.makeText(this,"Error decoding",Toast.LENGTH_SHORT);
         }
@@ -87,11 +108,12 @@ public class ChromeDecode extends AppCompatActivity {
     }
     public void chrome(String url) throws Exception{
         try {
-            Intent i = new Intent("android.intent.action.MAIN");
-            i.setComponent(ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main"));
-            i.addCategory("android.intent.category.LAUNCHER");
-            i.setData(Uri.parse(url));
-            startActivity(i);
+//            Intent i = new Intent("android.intent.action.MAIN");
+//            i.setComponent(ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main"));
+//            i.addCategory("android.intent.category.LAUNCHER");
+//            i.setData(Uri.parse(url));
+//            startActivity(i);
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url)));
         }
         catch(ActivityNotFoundException e) {
             // Chrome is probably not installed

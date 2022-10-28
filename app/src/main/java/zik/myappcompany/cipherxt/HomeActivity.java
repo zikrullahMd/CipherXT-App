@@ -29,10 +29,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public void chromeSetup(View view){
-        Intent intent = new Intent(this,ChromeSetupActivity.class);
-        startActivity(intent);
-    }
+//    public void chromeSetup(View view){
+//        Intent intent = new Intent(this,ChromeSetupActivity.class);
+//        startActivity(intent);
+//    }
     public void nonchromeSetup(View view){
         Intent intent = new Intent(this,NoChromeSetupActivity.class);
         startActivity(intent);

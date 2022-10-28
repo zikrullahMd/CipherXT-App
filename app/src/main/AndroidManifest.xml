@@ -50,28 +50,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ChromeDecode"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ChromeEncode"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".NoChromeSetupActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ChromeSetupActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

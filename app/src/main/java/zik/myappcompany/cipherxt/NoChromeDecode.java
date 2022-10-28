@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class NoChromeDecode extends AppCompatActivity {
 
     Button follow;
+    TextView data;
     private String ans;
 
     @Override
@@ -22,6 +23,11 @@ public class NoChromeDecode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_chrome_decode);
         follow = findViewById(R.id.urlBtn);
+        data = findViewById(R.id.database);
+        data.setOnClickListener(view->{
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://keep.google.com/u/0/#NOTE/1sj3zqAghZ6h9FH2CGM2WTdEYHZQg2WgEG6SsVXsC9armsnk2vT68XJoB9CuqfgTq")));
+
+        });
         follow.setOnClickListener(view ->{
             try {
                 chrome(this.ans);
